@@ -6,12 +6,12 @@ library(RUVSeq)
 
 #Setup groups.
 x <- as.factor(rep(c("stimulated", "baseline"), each=4))
-names(x) <- colnames(Counts.WT.males.females.3g)
+names(x) <- colnames(Raw.Counts.Matrix)
 groups <- matrix(data=c(1:4, 5:8), nrow=2, byrow=TRUE)
 
 #Filter out undetected / lowly expressed genes.
-filter <- apply(Counts.WT.males.females.3g, 1, function(x) length(x[which(x>10)])>5)
-filtered <- as.matrix(Counts.WT.males.females.3g)[filter,]
+filter <- apply(Raw.Counts.Matrix, 1, function(x) length(x[which(x>10)])>5)
+filtered <- as.matrix(Raw.Counts.Matrix)[filter,]
 
 #EDASeq normalization.
 uq <- betweenLaneNormalization(filtered, which="upper")
