@@ -5,7 +5,7 @@ library(EDASeq)
 library(RUVSeq)
 
 #Setup groups.
-x <- as.factor(rep(c("stimulated", "baseline"), each=4))
+x <- as.factor(rep(c("baseline", "stimulated"), each=4))
 names(x) <- colnames(Raw.Counts.Matrix)
 groups <- matrix(data=c(1:4, 5:8), nrow=2, byrow=TRUE)
 
