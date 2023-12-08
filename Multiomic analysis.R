@@ -247,6 +247,16 @@ combined <- FindNeighbors(combined, reduction = "pca", dims = 1:30)
 combined <- FindClusters(combined, resolution = 0.5)
 
 #Annotating cell types using a reference scRNA-seq from Allen
+# load metadata once
+library(future)
+library(future.apply)
+library(data.table)
+meta = fread("metadata.csv")
+subclass = unique(meta$subclass_label)
+simplify = c("sample_name", "full_genotype_label", "neighborhood_label", 
+             "subclass_label", "class_label", "donor_sex_label", "region_label")
+meta[, names(meta)[!(names(meta) %in% simplify)] := NULL]
+print(paste("metadata size:", format(object.size(meta), units="auto")))
 #For each matrix: read in, make Seurat and remove from memory
 sc.list = lapply(subclass, function(i) {
   #Inner join to ensure all cells have metadata
