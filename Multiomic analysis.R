@@ -285,6 +285,7 @@ remove(sc.list)
 #Normalizaing and scaling the scRNA-seq reference
 allen <- NormalizeData(allen)
 allen <- FindVariableFeatures(allen)
+allen <- ScaleData(allen, verbose = FALSE)
 allen <- RunPCA(allen)
 allen <- RunUMAP(allen, dims = 1:30)
 
